@@ -1,0 +1,3 @@
+{
+  "mariaDB": "root:q1w2e3r4@tcp(localhost)/bookstore"
+}

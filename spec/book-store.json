@@ -1,0 +1,393 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Simple BookStore API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "book",
+      "description": "book Details"
+    },
+    {
+      "name": "user",
+      "description": "user details"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "get all books from store",
+        "operationId": "getAllBooks",
+        "description": "retun all available books in store\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "list of Books",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/book": {
+      "post": {
+        "tags": [
+          "book"
+        ],
+        "summary": "add New Book in Store",
+        "operationId": "addNewbook",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "book",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "get": {
+        "tags": [
+          "book"
+        ],
+        "summary": "get a book by it's id",
+        "operationId": "getBook",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "bookId not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "book"
+        ],
+        "summary": "update a book by bookId",
+        "operationId": "updateBook",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "book",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "bookId not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "book"
+        ],
+        "summary": "delete book from store by bookId",
+        "operationId": "deleteBook",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "bookId not Found"
+          }
+        }
+      }
+    },
+    "/reviewers": {
+      "get": {
+        "tags": [
+          "reviewer"
+        ],
+        "summary": "get all reviewers",
+        "operationId": "getAllReviewers",
+        "description": "return all reviewers\n",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "list of reviewers",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Reviewer"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/reviewer": {
+      "post": {
+        "tags": [
+          "reviewer"
+        ],
+        "summary": "add New Reviewer in Store",
+        "operationId": "addNewReviewer",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "reviewer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "invalid input"
+          }
+        }
+      }
+    },
+    "/reviewer/{id}": {
+      "get": {
+        "tags": [
+          "reviewer"
+        ],
+        "summary": "get a reviewer by it's id",
+        "operationId": "getReviewer",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved",
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "reviewer id not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "reviewer"
+        ],
+        "summary": "update a reviewer by reviewer id",
+        "operationId": "updateReviewer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "reviewer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "reviewerId not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "reviewer"
+        ],
+        "summary": "delete reviewer from store by reviewerId",
+        "operationId": "deleteReviewer",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "400": {
+            "description": "invalid input"
+          },
+          "404": {
+            "description": "reviewerId not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "required": [
+        "bookName",
+        "authorName",
+        "publishDate"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "bookName": {
+          "type": "string",
+          "example": "Domain Driven Design"
+        },
+        "authorName": {
+          "type": "string",
+          "example": "Eric Evans"
+        },
+        "publishDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Reviewer": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        }
+      }
+    }
+  },
+  "basePath": "/api/v1",
+  "host": "localhost:8080",
+  "schemes": [
+    "http"
+  ]
+}
