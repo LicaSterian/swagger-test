@@ -56,7 +56,10 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
           },
           "400": {
             "description": "invalid input"
@@ -379,6 +382,12 @@ func init() {
         "publishDate": {
           "type": "string",
           "format": "date"
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reviewer"
+          }
         }
       }
     },
@@ -449,7 +458,10 @@ func init() {
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
           },
           "400": {
             "description": "invalid input"
@@ -772,6 +784,12 @@ func init() {
         "publishDate": {
           "type": "string",
           "format": "date"
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Reviewer"
+          }
         }
       }
     },

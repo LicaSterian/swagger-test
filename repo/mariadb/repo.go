@@ -31,9 +31,10 @@ func NewMariaRepository() (models.Repository, error) {
 	return repo, nil
 }
 
-func (repo *mariaRepository) InsertBook(book *models.Book) error {
-	_, err := repo.db.Exec(`INSERT INTO books (id, bookName, authorName, publishDate) VALUES(UNHEX(?), ?, ?, DATE(?))`, uuid.New(), book.BookName, book.AuthorName, book.PublishDate.String())
-	return err
+func (repo *mariaRepository) InsertBook(book *models.Book) (*models.Book, error) {
+	book.ID = uuid.New()
+	_, err := repo.db.Exec(`INSERT INTO books (id, bookName, authorName, publishDate) VALUES(UNHEX(?), ?, ?, DATE(?))`, book.ID, book.BookName, book.AuthorName, book.PublishDate.String())
+	return book, err
 }
 func (repo *mariaRepository) GetAllBooks() ([]*models.Book, error) {
 	var result []*models.Book

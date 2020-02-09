@@ -1,7 +1,7 @@
 package models
 
 type Repository interface {
-	InsertBook(book *Book) error
+	InsertBook(book *Book) (*Book, error)
 	GetAllBooks() ([]*Book, error)
 	GetBook(bookId string) (*Book, error)
 	UpdateBook(bookId string, book *Book) error

@@ -43,11 +43,13 @@ func configureAPI(api *operations.SimpleBookStoreAPI) http.Handler {
 	r, _ = mariadb.NewMariaRepository()
 
 	api.BookAddNewbookHandler = book.AddNewbookHandlerFunc(func(params book.AddNewbookParams) middleware.Responder {
-		err := r.InsertBook(params.Book)
+		b, err := r.InsertBook(params.Book)
 		if err != nil {
 			return book.NewAddNewbookBadRequest()
 		}
-		return book.NewAddNewbookOK()
+		result := book.NewAddNewbookOK()
+		result.SetPayload(b)
+		return result
 	})
 	api.BookUpdateBookHandler = book.UpdateBookHandlerFunc(func(params book.UpdateBookParams) middleware.Responder {
 		b, err := r.GetBook(params.ID)

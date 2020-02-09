@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -32,6 +34,9 @@ type Book struct {
 	// Required: true
 	// Format: date
 	PublishDate *strfmt.Date `json:"publishDate"`
+
+	// reviewers
+	Reviewers []*Reviewer `json:"reviewers"`
 }
 
 // Validate validates this book
@@ -47,6 +52,10 @@ func (m *Book) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePublishDate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateReviewers(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -82,6 +91,31 @@ func (m *Book) validatePublishDate(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("publishDate", "body", "date", m.PublishDate.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Book) validateReviewers(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Reviewers) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Reviewers); i++ {
+		if swag.IsZero(m.Reviewers[i]) { // not required
+			continue
+		}
+
+		if m.Reviewers[i] != nil {
+			if err := m.Reviewers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("reviewers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
