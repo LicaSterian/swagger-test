@@ -191,6 +191,9 @@
         "summary": "get all reviewers",
         "operationId": "getAllReviewers",
         "description": "return all reviewers\n",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -231,8 +234,11 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
           },
           "400": {
             "description": "invalid input"

@@ -9,30 +9,52 @@ import (
 	"net/http"
 
 	"github.com/go-openapi/runtime"
+
+	"github.com/LicaSterian/swagger-test/models"
 )
 
-// AddNewReviewerOKCode is the HTTP code returned for type AddNewReviewerOK
-const AddNewReviewerOKCode int = 200
+// AddNewReviewerCreatedCode is the HTTP code returned for type AddNewReviewerCreated
+const AddNewReviewerCreatedCode int = 201
 
-/*AddNewReviewerOK OK
+/*AddNewReviewerCreated OK
 
-swagger:response addNewReviewerOK
+swagger:response addNewReviewerCreated
 */
-type AddNewReviewerOK struct {
+type AddNewReviewerCreated struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *models.Reviewer `json:"body,omitempty"`
 }
 
-// NewAddNewReviewerOK creates AddNewReviewerOK with default headers values
-func NewAddNewReviewerOK() *AddNewReviewerOK {
+// NewAddNewReviewerCreated creates AddNewReviewerCreated with default headers values
+func NewAddNewReviewerCreated() *AddNewReviewerCreated {
 
-	return &AddNewReviewerOK{}
+	return &AddNewReviewerCreated{}
+}
+
+// WithPayload adds the payload to the add new reviewer created response
+func (o *AddNewReviewerCreated) WithPayload(payload *models.Reviewer) *AddNewReviewerCreated {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the add new reviewer created response
+func (o *AddNewReviewerCreated) SetPayload(payload *models.Reviewer) {
+	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *AddNewReviewerOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *AddNewReviewerCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
-
-	rw.WriteHeader(200)
+	rw.WriteHeader(201)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
 }
 
 // AddNewReviewerBadRequestCode is the HTTP code returned for type AddNewReviewerBadRequest

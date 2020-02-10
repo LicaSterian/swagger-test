@@ -5,6 +5,7 @@ package restapi
 import (
 	"crypto/tls"
 	"database/sql"
+	"fmt"
 	"github.com/LicaSterian/swagger-test/restapi/operations/reviewer"
 	"net/http"
 
@@ -59,6 +60,7 @@ func configureAPI(api *operations.SimpleBookStoreAPI) http.Handler {
 
 		err = r.UpdateBook(params.ID, params.Book)
 		if err != nil {
+			fmt.Println("updateBook error:", err.Error())
 			return book.NewUpdateBookBadRequest()
 		}
 		return book.NewUpdateBookOK()
@@ -94,11 +96,13 @@ func configureAPI(api *operations.SimpleBookStoreAPI) http.Handler {
 
 
 	api.ReviewerAddNewReviewerHandler = reviewer.AddNewReviewerHandlerFunc(func(params reviewer.AddNewReviewerParams) middleware.Responder {
-		err := r.InsertReviewer(params.Reviewer)
+		rev, err := r.InsertReviewer(params.Reviewer)
 		if err != nil {
 			return reviewer.NewAddNewReviewerBadRequest()
 		}
-		return reviewer.NewAddNewReviewerOK()
+		result := reviewer.NewAddNewReviewerCreated()
+		result.SetPayload(rev)
+		return result
 	})
 	api.ReviewerUpdateReviewerHandler = reviewer.UpdateReviewerHandlerFunc(func(params reviewer.UpdateReviewerParams) middleware.Responder {
 		b, err := r.GetReviewer(params.ID)

@@ -7,7 +7,7 @@ type Repository interface {
 	UpdateBook(bookId string, book *Book) error
 	DeleteBook(bookId string) error
 
-	InsertReviewer(reviewer *Reviewer) error
+	InsertReviewer(reviewer *Reviewer) (*Reviewer , error)
 	GetAllReviewers() ([]*Reviewer, error)
 	GetReviewer(reviewerId string) (*Reviewer, error)
 	UpdateReviewer(reviewerId string, reviewer *Reviewer) error

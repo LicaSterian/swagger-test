@@ -17,9 +17,9 @@ CREATE TABLE reviewers (
     UNIQUE key (name)
 );
 
-CREATE TABLE reviews (
+CREATE TABLE books_reviewers (
     bookId BINARY(16) NOT NULL,
     reviewerId BINARY(16) NOT NULL,
-    review VARCHAR(512),
     PRIMARY KEY (bookId, reviewerId)
 );
+

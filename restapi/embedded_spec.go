@@ -218,8 +218,11 @@ func init() {
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
           },
           "400": {
             "description": "invalid input"
@@ -333,6 +336,9 @@ func init() {
     "/reviewers": {
       "get": {
         "description": "return all reviewers\n",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -620,8 +626,11 @@ func init() {
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Reviewer"
+            }
           },
           "400": {
             "description": "invalid input"
@@ -735,6 +744,9 @@ func init() {
     "/reviewers": {
       "get": {
         "description": "return all reviewers\n",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
